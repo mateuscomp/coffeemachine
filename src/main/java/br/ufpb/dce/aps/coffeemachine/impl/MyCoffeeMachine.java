@@ -24,4 +24,9 @@ public class MyCoffeeMachine extends ComporFacade implements CoffeeMachine {
 		requestService("mostrarValorInserido", dime, factory);
 	}
 
+	public void cancel() {
+		requestService("cancelar", factory); 
+		
+	}
+
 }

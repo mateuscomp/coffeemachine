@@ -25,11 +25,13 @@ public class DisplayCoffeeMachine extends Component {
 		
 		factory.getDisplay().info("Total: US$ " + dollar + "." + cents);
 	}
-
-//	public double getTotal() {
-//		double centsWithZero = cents % 10 > 1  ? new Double(cents + "0") : cents; 
-//		return dollar + centsWithZero; 
-//	}
+	
+	@Service
+	public void cancelar(ComponentsFactory factory){
+		if(dollar == 0 &&  cents == 0){
+			throw new CoffeeMachineException("");
+		}
+	}
 
 	
 	
