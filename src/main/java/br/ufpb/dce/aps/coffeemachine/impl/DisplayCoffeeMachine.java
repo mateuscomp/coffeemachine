@@ -19,7 +19,6 @@ public class DisplayCoffeeMachine extends Component {
 	public DisplayCoffeeMachine(String name) {
 		super(name);
 		this.coins = new ArrayList<Coin>();
-
 	}
 
 	@Service
@@ -43,7 +42,7 @@ public class DisplayCoffeeMachine extends Component {
 		if (dollar == 0 && cents == 0) {
 			throw new CoffeeMachineException("");
 		}
-		factory.getDisplay().warn(Messages.CANCEL_MESSAGE);
+		factory.getDisplay().warn(Messages.CANCEL);
 
 		removerMoedas(factory);
 		this.init(factory);
