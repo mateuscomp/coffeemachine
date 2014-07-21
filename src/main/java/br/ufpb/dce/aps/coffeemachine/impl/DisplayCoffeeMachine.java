@@ -27,7 +27,7 @@ public class DisplayCoffeeMachine extends Component {
 		factory.getDisplay().info("Insert coins and select a drink!");
 	}
 
-	@Service(name = "mostrarValorInserido")
+	@Service
 	public void mostrarValorInserido(Coin dime, ComponentsFactory factory) {
 		if (dime == null) {
 			throw new CoffeeMachineException("");
@@ -45,14 +45,21 @@ public class DisplayCoffeeMachine extends Component {
 		}
 		factory.getDisplay().warn(Messages.CANCEL_MESSAGE);
 
+		removerMoedas(factory);
+		this.init(factory);
+	}
+
+	private void removerMoedas(ComponentsFactory factory) {
+		List<Integer> indicesASeremRemovidos = new ArrayList<Integer>();
+
 		for (Coin coinDescrecente : Coin.reverse()) {
 			for (int i = 0; i < this.coins.size(); i++) {
 				if (this.coins.get(i).equals(coinDescrecente)) {
 					factory.getCashBox().release(coins.get(i));
-					this.coins.remove(i);
+					indicesASeremRemovidos.add(new Integer(i));
 				}
 			}
 		}
-		this.init(factory);
+		this.coins.removeAll(indicesASeremRemovidos);
 	}
 }
