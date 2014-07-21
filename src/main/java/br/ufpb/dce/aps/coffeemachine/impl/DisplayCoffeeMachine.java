@@ -45,8 +45,13 @@ public class DisplayCoffeeMachine extends Component {
 		}
 		factory.getDisplay().warn(Messages.CANCEL_MESSAGE);
 
-		for (Coin coin : this.coins) {
-			factory.getCashBox().release(coin);
+		for (Coin coinDescrecente : Coin.reverse()) {
+			for (int i = 0; i < this.coins.size(); i++) {
+				if (this.coins.get(i).equals(coinDescrecente)) {
+					factory.getCashBox().release(coins.get(i));
+					this.coins.remove(i);
+				}
+			}
 		}
 		this.init(factory);
 	}
