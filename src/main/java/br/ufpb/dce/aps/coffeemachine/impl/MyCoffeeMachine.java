@@ -11,7 +11,7 @@ public class MyCoffeeMachine extends ComporFacade implements CoffeeMachine {
 
 	public MyCoffeeMachine(ComponentsFactory factory) {
 		this.factory = factory;
-		factory.getDisplay().info("Insert coins and select a drink!");
+		requestService("init", factory);
 	}
 
 	@Override
