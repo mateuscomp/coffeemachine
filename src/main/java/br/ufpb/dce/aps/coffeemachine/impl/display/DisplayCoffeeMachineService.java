@@ -1,4 +1,4 @@
-package br.ufpb.dce.aps.coffeemachine.impl;
+package br.ufpb.dce.aps.coffeemachine.impl.display;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,20 +10,20 @@ import br.ufpb.dce.aps.coffeemachine.Coin;
 import br.ufpb.dce.aps.coffeemachine.ComponentsFactory;
 import br.ufpb.dce.aps.coffeemachine.Messages;
 
-public class DisplayCoffeeMachine extends Component {
+public class DisplayCoffeeMachineService extends Component {
 
 	private int dollar = 0;
 	private int cents = 0;
 	private List<Coin> coins;
 
-	public DisplayCoffeeMachine(String name) {
+	public DisplayCoffeeMachineService(String name) {
 		super(name);
 		this.coins = new ArrayList<Coin>();
 	}
 
 	@Service
-	public void init(ComponentsFactory factory) {
-		factory.getDisplay().info("Insert coins and select a drink!");
+	public void insertCoinsMessageDisplay(ComponentsFactory factory) {
+		factory.getDisplay().info(Messages.INSERT_COINS);
 	}
 
 	@Service
@@ -44,8 +44,8 @@ public class DisplayCoffeeMachine extends Component {
 		}
 		factory.getDisplay().warn(Messages.CANCEL);
 
-		removerMoedas(factory);
-		this.init(factory);
+		this.removerMoedas(factory);
+		this.insertCoinsMessageDisplay(factory);
 	}
 
 	private void removerMoedas(ComponentsFactory factory) {

@@ -5,6 +5,8 @@ import br.ufpb.dce.aps.coffeemachine.CoffeeMachine;
 import br.ufpb.dce.aps.coffeemachine.Coin;
 import br.ufpb.dce.aps.coffeemachine.ComponentsFactory;
 import br.ufpb.dce.aps.coffeemachine.Drink;
+import br.ufpb.dce.aps.coffeemachine.impl.display.DisplayCoffeeMachineService;
+import br.ufpb.dce.aps.coffeemachine.impl.preparador.PreparadorDeCafeService;
 
 public class MyCoffeeMachine extends ComporFacade implements CoffeeMachine {
 
@@ -12,29 +14,25 @@ public class MyCoffeeMachine extends ComporFacade implements CoffeeMachine {
 
 	public MyCoffeeMachine(ComponentsFactory factory) {
 		this.factory = factory;
-		requestService("init", factory);
-		
+		requestService("insertCoinsMessageDisplay", this.factory);
 	}
 
 	@Override
 	protected void addComponents() {
 		super.addComponents();
-		add(new DisplayCoffeeMachine("displayCoffeeMachine"));
-		add(new FabricadorDeCafe("fabricadorDeCafe"));
+		add(new DisplayCoffeeMachineService("displayCoffeeMachine"));
+		add(new PreparadorDeCafeService("fabricadorDeCafe"));
 	}
 
 	public void insertCoin(Coin dime) {
-		requestService("mostrarValorInserido", dime, factory);
+		requestService("mostrarValorInserido", dime, this.factory);
 	}
 
 	public void cancel() {
-		requestService("cancelar", factory); 
-		
+		requestService("cancelar", this.factory);
 	}
 
 	public void select(Drink drink) {
-		requestService("prepararCafePreto", drink, factory);
-		requestService("init", factory);
+		requestService("prepararCafe", drink, this.factory);
 	}
-
 }
