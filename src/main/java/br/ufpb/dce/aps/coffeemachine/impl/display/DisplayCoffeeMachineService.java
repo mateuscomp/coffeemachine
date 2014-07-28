@@ -8,6 +8,7 @@ import net.compor.frameworks.jcf.api.Service;
 import br.ufpb.dce.aps.coffeemachine.CoffeeMachineException;
 import br.ufpb.dce.aps.coffeemachine.Coin;
 import br.ufpb.dce.aps.coffeemachine.ComponentsFactory;
+import br.ufpb.dce.aps.coffeemachine.Drink;
 import br.ufpb.dce.aps.coffeemachine.Messages;
 
 public class DisplayCoffeeMachineService extends Component {
@@ -49,16 +50,17 @@ public class DisplayCoffeeMachineService extends Component {
 	}
 
 	private void removerMoedas(ComponentsFactory factory) {
-		List<Integer> indicesASeremRemovidos = new ArrayList<Integer>();
-
 		for (Coin coinDescrecente : Coin.reverse()) {
 			for (int i = 0; i < this.coins.size(); i++) {
 				if (this.coins.get(i).equals(coinDescrecente)) {
 					factory.getCashBox().release(coins.get(i));
-					indicesASeremRemovidos.add(new Integer(i));
 				}
 			}
 		}
-		this.coins.removeAll(indicesASeremRemovidos);
+		this.consumirMoedas();
+	}
+	@Service
+	public void consumirMoedas(){
+		this.coins = new ArrayList<Coin>();
 	}
 }

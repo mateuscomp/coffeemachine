@@ -22,6 +22,7 @@ public class PreparadorDeCafeService extends Component {
 	@Service
 	public void prepararCafe(Drink drink, ComponentsFactory factory) {
 		this.servicosDeCafe.get(drink).preparar(factory);
+		requestService("consumirMoedas");
 		requestService("insertCoinsMessageDisplay", factory);
 	}
 }
