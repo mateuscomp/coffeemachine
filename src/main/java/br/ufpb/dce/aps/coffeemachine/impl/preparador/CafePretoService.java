@@ -3,23 +3,10 @@ package br.ufpb.dce.aps.coffeemachine.impl.preparador;
 import br.ufpb.dce.aps.coffeemachine.ComponentsFactory;
 import br.ufpb.dce.aps.coffeemachine.Messages;
 
-public class CafePretoService extends CafeService {
-	
-	protected static final int QTD_COPOS = 1;
-	protected static final double QTD_AGUA = 0.5;
-	protected static final double QTD_PO_DE_CAFE = 1.5;
-		
-	public void preparar(ComponentsFactory factory) {
+public class CafePretoService extends CafeAbstractService {
+
+	public void preparar(ComponentsFactory factory) throws FaltaDePoDeCafeException {
 		super.preparar(factory);
-	}	
-	
-	@Override
-	public boolean verificarDisponibilidadeDeIngredientes(){
-		boolean temCopoDisponivel = cupDispenser.contains(QTD_COPOS);
-		boolean temAguaDisponivel = waterDispenser.contains(QTD_AGUA);
-		boolean temPoDeCafe = coffeePowderDispenser.contains(QTD_PO_DE_CAFE);
-		
-		return temCopoDisponivel && temAguaDisponivel && temPoDeCafe;
 	}
 
 	@Override

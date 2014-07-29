@@ -1,4 +1,4 @@
-package br.ufpb.dce.aps.coffeemachine.impl.display;
+package br.ufpb.dce.aps.coffeemachine.impl.caixaregistradora;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,27 +8,21 @@ import net.compor.frameworks.jcf.api.Service;
 import br.ufpb.dce.aps.coffeemachine.CoffeeMachineException;
 import br.ufpb.dce.aps.coffeemachine.Coin;
 import br.ufpb.dce.aps.coffeemachine.ComponentsFactory;
-import br.ufpb.dce.aps.coffeemachine.Drink;
 import br.ufpb.dce.aps.coffeemachine.Messages;
 
-public class DisplayCoffeeMachineService extends Component {
+public class CaixaRegistradoraCoffeeMachineService extends Component {
 
 	private int dollar = 0;
 	private int cents = 0;
 	private List<Coin> coins;
 
-	public DisplayCoffeeMachineService(String name) {
+	public CaixaRegistradoraCoffeeMachineService(String name) {
 		super(name);
 		this.coins = new ArrayList<Coin>();
 	}
 
 	@Service
-	public void insertCoinsMessageDisplay(ComponentsFactory factory) {
-		factory.getDisplay().info(Messages.INSERT_COINS);
-	}
-
-	@Service
-	public void mostrarValorInserido(Coin dime, ComponentsFactory factory) {
+	public void receberMoedas(Coin dime, ComponentsFactory factory) {
 		if (dime == null) {
 			throw new CoffeeMachineException("");
 		}
@@ -44,12 +38,12 @@ public class DisplayCoffeeMachineService extends Component {
 			throw new CoffeeMachineException("");
 		}
 		factory.getDisplay().warn(Messages.CANCEL);
-
 		this.removerMoedas(factory);
-		this.insertCoinsMessageDisplay(factory);
+		factory.getDisplay().info(Messages.INSERT_COINS);
 	}
 
-	private void removerMoedas(ComponentsFactory factory) {
+	@Service
+	public void removerMoedas(ComponentsFactory factory) {
 		for (Coin coinDescrecente : Coin.reverse()) {
 			for (int i = 0; i < this.coins.size(); i++) {
 				if (this.coins.get(i).equals(coinDescrecente)) {
@@ -57,10 +51,11 @@ public class DisplayCoffeeMachineService extends Component {
 				}
 			}
 		}
-		this.consumirMoedas();
+		this.limparCaixaDeMoedas();
 	}
+
 	@Service
-	public void consumirMoedas(){
+	public void limparCaixaDeMoedas() {
 		this.coins = new ArrayList<Coin>();
 	}
 }
