@@ -26,7 +26,7 @@ public class PreparadorDeCafeService extends Component {
 		try {
 			this.servicosDeCafe.get(drink).preparar(factory);
 			requestService("limparCaixaDeMoedas");
-		} catch (FaltaDePoDeCafeException e) {
+		} catch (FaltaDeIngredienteException e) {
 			factory.getDisplay().warn(e.getMessage());
 			requestService("removerMoedas", factory);
 		}

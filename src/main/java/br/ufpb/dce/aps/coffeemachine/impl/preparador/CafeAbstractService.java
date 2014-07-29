@@ -20,7 +20,7 @@ public abstract class CafeAbstractService {
 	protected static final double QTD_PO_DE_CAFE = 1.5;
 
 	public void preparar(ComponentsFactory factory)
-			throws FaltaDePoDeCafeException {
+			throws FaltaDeIngredienteException {
 
 		this.instanciarDispensers(factory);
 		this.display = factory.getDisplay();
@@ -41,7 +41,7 @@ public abstract class CafeAbstractService {
 	}
 
 	public boolean verificarDisponibilidadeDeIgredientes()
-			throws FaltaDePoDeCafeException {
+			throws FaltaDeIngredienteException {
 		boolean temCopoDisponivel = cupDispenser.contains(QTD_COPOS);
 		boolean temAguaDisponivel = waterDispenser.contains(QTD_AGUA);
 
@@ -50,12 +50,12 @@ public abstract class CafeAbstractService {
 	}
 
 	private boolean verificarDisponibilidadeDePoDeCafe()
-			throws FaltaDePoDeCafeException {
+			throws FaltaDeIngredienteException {
 
 		boolean temPoDeCafe = this.coffeePowderDispenser
 				.contains(QTD_PO_DE_CAFE);
 		if (!temPoDeCafe) {
-			throw new FaltaDePoDeCafeException(Messages.OUT_OF_COFFEE_POWDER);
+			throw new FaltaDeIngredienteException(Messages.OUT_OF_COFFEE_POWDER);
 		}
 		return temPoDeCafe;
 	}

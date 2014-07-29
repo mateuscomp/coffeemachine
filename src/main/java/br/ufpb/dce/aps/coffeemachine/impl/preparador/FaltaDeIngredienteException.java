@@ -1,6 +1,6 @@
 package br.ufpb.dce.aps.coffeemachine.impl.preparador;
 
-public class FaltaDePoDeCafeException extends Exception {
+public class FaltaDeIngredienteException extends Exception {
 
 
 	/**
@@ -8,7 +8,7 @@ public class FaltaDePoDeCafeException extends Exception {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public FaltaDePoDeCafeException(String msg) {
+	public FaltaDeIngredienteException(String msg) {
 		super(msg);
 	}
 

@@ -12,7 +12,7 @@ public class CafePretoComAcucarService extends CafePretoService {
 
 	@Override
 	public void preparar(ComponentsFactory factory)
-			throws FaltaDePoDeCafeException {
+			throws FaltaDeIngredienteException {
 		this.sugarDispenser = factory.getSugarDispenser();
 		super.preparar(factory);
 	}
@@ -33,11 +33,14 @@ public class CafePretoComAcucarService extends CafePretoService {
 
 	@Override
 	public boolean verificarDisponibilidadeDeIgredientes()
-			throws FaltaDePoDeCafeException {
+			throws FaltaDeIngredienteException {
 		
 		boolean temIngredientesCafePreto = super
 				.verificarDisponibilidadeDeIgredientes();
 		boolean temAcucar = this.sugarDispenser.contains(QTD_ACUCAR);
+		if(! temAcucar){
+			throw new FaltaDeIngredienteException(Messages.OUT_OF_SUGAR);
+		}
 
 		return temIngredientesCafePreto && temAcucar;
 	}
