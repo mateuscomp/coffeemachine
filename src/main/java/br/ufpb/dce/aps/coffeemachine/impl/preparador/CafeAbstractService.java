@@ -43,8 +43,11 @@ public abstract class CafeAbstractService {
 	public boolean verificarDisponibilidadeDeIgredientes()
 			throws FaltaDeIngredienteException {
 		boolean temCopoDisponivel = cupDispenser.contains(QTD_COPOS);
+		if (!temCopoDisponivel) {
+			throw new FaltaDeIngredienteException(Messages.OUT_OF_CUP);
+		}
 		boolean temAguaDisponivel = waterDispenser.contains(QTD_AGUA);
-		if(! temAguaDisponivel){
+		if (!temAguaDisponivel) {
 			throw new FaltaDeIngredienteException(Messages.OUT_OF_WATER);
 		}
 		boolean temPoDeCafe = this.coffeePowderDispenser
@@ -53,7 +56,6 @@ public abstract class CafeAbstractService {
 			throw new FaltaDeIngredienteException(Messages.OUT_OF_COFFEE_POWDER);
 		}
 
-		return temCopoDisponivel && temAguaDisponivel
-				&& temPoDeCafe;
+		return temCopoDisponivel && temAguaDisponivel && temPoDeCafe;
 	}
 }
