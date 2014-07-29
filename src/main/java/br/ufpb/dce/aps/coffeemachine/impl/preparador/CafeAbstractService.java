@@ -44,19 +44,16 @@ public abstract class CafeAbstractService {
 			throws FaltaDeIngredienteException {
 		boolean temCopoDisponivel = cupDispenser.contains(QTD_COPOS);
 		boolean temAguaDisponivel = waterDispenser.contains(QTD_AGUA);
-
-		return temCopoDisponivel && temAguaDisponivel
-				&& this.verificarDisponibilidadeDePoDeCafe();
-	}
-
-	private boolean verificarDisponibilidadeDePoDeCafe()
-			throws FaltaDeIngredienteException {
-
+		if(! temAguaDisponivel){
+			throw new FaltaDeIngredienteException(Messages.OUT_OF_WATER);
+		}
 		boolean temPoDeCafe = this.coffeePowderDispenser
 				.contains(QTD_PO_DE_CAFE);
 		if (!temPoDeCafe) {
 			throw new FaltaDeIngredienteException(Messages.OUT_OF_COFFEE_POWDER);
 		}
-		return temPoDeCafe;
+
+		return temCopoDisponivel && temAguaDisponivel
+				&& temPoDeCafe;
 	}
 }
