@@ -1,47 +1,50 @@
 package br.ufpb.dce.aps.coffeemachine.impl.preparador;
 
+import static org.mockito.Matchers.anyDouble;
 import br.ufpb.dce.aps.coffeemachine.ComponentsFactory;
 import br.ufpb.dce.aps.coffeemachine.Dispenser;
 import br.ufpb.dce.aps.coffeemachine.Messages;
 
-public class CafePretoComAcucarService extends CafePretoService {
+public class CafeComCremeService extends CafePretoService {
 
-	protected static final int QTD_ACUCAR = 1;
+	private Dispenser creamerDispenser;
 
-	private Dispenser sugarDispenser;
+	private static final double QTD_CREME = 1;
 
 	@Override
 	public void preparar(ComponentsFactory factory)
 			throws FaltaDeIngredienteException {
-		this.sugarDispenser = factory.getSugarDispenser();
+
 		super.preparar(factory);
 	}
 
 	@Override
+	protected void instanciarDispensers(ComponentsFactory factory) {
+		super.instanciarDispensers(factory);
+		this.creamerDispenser = factory.getCreamerDispenser();
+	}
+
 	public void adicionarIngredientes() {
 		this.coffeePowderDispenser.release(QTD_PO_DE_CAFE);
 		this.waterDispenser.release(QTD_AGUA);
-
-		this.sugarDispenser.release(QTD_ACUCAR);
+		this.creamerDispenser.release(QTD_CREME);
 
 		this.display.info(Messages.RELEASING);
-		this.cupDispenser.release(QTD_COPOS);
-
-		this.drinkDispenser.release(1);
+		this.cupDispenser.release(1);
+		this.drinkDispenser.release(anyDouble());
 		this.display.info(Messages.TAKE_DRINK);
 	}
 
-	@Override
 	public boolean verificarDisponibilidadeDeIgredientes()
 			throws FaltaDeIngredienteException {
 
-		boolean temIngredientesCafePreto = super
+		boolean temIngredientesDeUmPreto = super
 				.verificarDisponibilidadeDeIgredientes();
-		boolean temAcucar = this.sugarDispenser.contains(QTD_ACUCAR);
-		if (!temAcucar) {
-			throw new FaltaDeIngredienteException(Messages.OUT_OF_SUGAR);
+		boolean temCreme = this.creamerDispenser.contains(QTD_CREME);
+		if (!temCreme) {
+			throw new FaltaDeIngredienteException("");
 		}
-
-		return temIngredientesCafePreto && temAcucar;
+		return temIngredientesDeUmPreto && temCreme;
 	}
+
 }

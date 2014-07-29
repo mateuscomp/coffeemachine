@@ -16,7 +16,7 @@ public class MockComponentsFactory implements ComponentsFactory {
 	private Display display;
 	private CashBox cashBox;
 	private DrinkDispenser drinkDispenser;
-	private Map<String,Dispenser> dispensers = new HashMap<String, Dispenser>();
+	private Map<String, Dispenser> dispensers = new HashMap<String, Dispenser>();
 
 	public Display getDisplay() {
 		if (display == null) {
@@ -37,7 +37,7 @@ public class MockComponentsFactory implements ComponentsFactory {
 	public Dispenser getCoffeePowderDispenser() {
 		return getDispenser(COFFEE_POWDER);
 	}
-	
+
 	public Dispenser getWaterDispenser() {
 		return getDispenser(WATER);
 	}
@@ -58,8 +58,8 @@ public class MockComponentsFactory implements ComponentsFactory {
 		if (dispensers.get(key) == null) {
 			dispensers.put(key, mock(Dispenser.class));
 		}
-		
-		return dispensers.get(key);		
+
+		return dispensers.get(key);
 	}
 
 	public Dispenser getSugarDispenser() {

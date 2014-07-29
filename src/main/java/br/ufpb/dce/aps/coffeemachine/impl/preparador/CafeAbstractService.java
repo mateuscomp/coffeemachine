@@ -33,7 +33,7 @@ public abstract class CafeAbstractService {
 
 	public abstract void adicionarIngredientes();
 
-	private void instanciarDispensers(ComponentsFactory factory) {
+	protected void instanciarDispensers(ComponentsFactory factory) {
 		this.cupDispenser = factory.getCupDispenser();
 		this.waterDispenser = factory.getWaterDispenser();
 		this.coffeePowderDispenser = factory.getCoffeePowderDispenser();

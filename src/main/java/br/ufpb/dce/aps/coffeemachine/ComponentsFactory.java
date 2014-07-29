@@ -5,7 +5,7 @@ public interface ComponentsFactory {
 	Display getDisplay();
 
 	CashBox getCashBox();
-	
+
 	Dispenser getCoffeePowderDispenser();
 
 	Dispenser getWaterDispenser();

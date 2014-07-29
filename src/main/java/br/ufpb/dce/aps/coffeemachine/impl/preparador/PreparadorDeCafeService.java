@@ -19,6 +19,7 @@ public class PreparadorDeCafeService extends Component {
 		this.servicosDeCafe.put(Drink.BLACK, new CafePretoService());
 		this.servicosDeCafe.put(Drink.BLACK_SUGAR,
 				new CafePretoComAcucarService());
+		this.servicosDeCafe.put(Drink.WHITE, new CafeComCremeService());
 	}
 
 	@Service
