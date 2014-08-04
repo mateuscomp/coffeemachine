@@ -4,4 +4,6 @@ public interface CashBox {
 
 	void release(Coin coin);
 
+	int count(Coin coin);
+	
 }
