@@ -1,14 +1,9 @@
 package br.ufpb.dce.aps.coffeemachine.impl.preparador;
 
-import br.ufpb.dce.aps.coffeemachine.ComponentsFactory;
 import br.ufpb.dce.aps.coffeemachine.Messages;
 
 public class CafePretoService extends CafeAbstractService {
 
-	public void preparar(ComponentsFactory factory)
-			throws FaltaDeIngredienteException {
-		super.preparar(factory);
-	}
 
 	@Override
 	public void adicionarIngredientes() {

@@ -20,12 +20,22 @@ public class PreparadorDeCafeService extends Component {
 		this.servicosDeCafe.put(Drink.BLACK_SUGAR,
 				new CafePretoComAcucarService());
 		this.servicosDeCafe.put(Drink.WHITE, new CafeComCremeService());
+		this.servicosDeCafe
+				.put(Drink.WHITE_SUGAR, new CafeComCremeEComAcucar());
 	}
 
 	@Service
 	public void prepararCafe(Drink drink, ComponentsFactory factory) {
 		try {
-			this.servicosDeCafe.get(drink).preparar(factory);
+			CafeAbstractService service = this.servicosDeCafe.get(drink);
+			service.setFactory(factory);
+			service.instanciarDispensers(factory);
+
+			service.verificarDisponibilidadeDeIgredientes();
+			requestService("planejarTroco", factory);
+			factory.getDisplay().info(Messages.MIXING);
+			service.adicionarIngredientes();
+			requestService("entregarTroco", factory);
 			requestService("limparCaixaDeMoedas");
 		} catch (FaltaDeIngredienteException e) {
 			factory.getDisplay().warn(e.getMessage());

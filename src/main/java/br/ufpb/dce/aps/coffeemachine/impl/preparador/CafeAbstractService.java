@@ -7,6 +7,7 @@ import br.ufpb.dce.aps.coffeemachine.DrinkDispenser;
 import br.ufpb.dce.aps.coffeemachine.Messages;
 
 public abstract class CafeAbstractService {
+	protected ComponentsFactory factory;
 
 	protected Dispenser cupDispenser;
 	protected Dispenser waterDispenser;
@@ -19,18 +20,6 @@ public abstract class CafeAbstractService {
 	protected static final double QTD_AGUA = 0.5;
 	protected static final double QTD_PO_DE_CAFE = 1.5;
 
-	public void preparar(ComponentsFactory factory)
-			throws FaltaDeIngredienteException {
-
-		this.instanciarDispensers(factory);
-		this.display = factory.getDisplay();
-
-		if (verificarDisponibilidadeDeIgredientes()) {
-			this.display.info(Messages.MIXING);
-			adicionarIngredientes();
-		}
-	}
-
 	public abstract void adicionarIngredientes();
 
 	protected void instanciarDispensers(ComponentsFactory factory) {
@@ -38,9 +27,11 @@ public abstract class CafeAbstractService {
 		this.waterDispenser = factory.getWaterDispenser();
 		this.coffeePowderDispenser = factory.getCoffeePowderDispenser();
 		this.drinkDispenser = factory.getDrinkDispenser();
+		
+		this.display = factory.getDisplay();
 	}
 
-	public boolean verificarDisponibilidadeDeIgredientes()
+	public void verificarDisponibilidadeDeIgredientes()
 			throws FaltaDeIngredienteException {
 		boolean temCopoDisponivel = cupDispenser.contains(QTD_COPOS);
 		if (!temCopoDisponivel) {
@@ -55,7 +46,9 @@ public abstract class CafeAbstractService {
 		if (!temPoDeCafe) {
 			throw new FaltaDeIngredienteException(Messages.OUT_OF_COFFEE_POWDER);
 		}
+	}
 
-		return temCopoDisponivel && temAguaDisponivel && temPoDeCafe;
+	public void setFactory(ComponentsFactory factory) {
+		this.factory = factory;
 	}
 }

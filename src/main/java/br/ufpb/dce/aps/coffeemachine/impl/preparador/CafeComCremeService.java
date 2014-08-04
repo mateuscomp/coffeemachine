@@ -7,16 +7,9 @@ import br.ufpb.dce.aps.coffeemachine.Messages;
 
 public class CafeComCremeService extends CafePretoService {
 
-	private Dispenser creamerDispenser;
+	protected Dispenser creamerDispenser;
 
 	private static final double QTD_CREME = 1;
-
-	@Override
-	public void preparar(ComponentsFactory factory)
-			throws FaltaDeIngredienteException {
-
-		super.preparar(factory);
-	}
 
 	@Override
 	protected void instanciarDispensers(ComponentsFactory factory) {
@@ -35,16 +28,14 @@ public class CafeComCremeService extends CafePretoService {
 		this.display.info(Messages.TAKE_DRINK);
 	}
 
-	public boolean verificarDisponibilidadeDeIgredientes()
+	public void verificarDisponibilidadeDeIgredientes()
 			throws FaltaDeIngredienteException {
 
-		boolean temIngredientesDeUmPreto = super
-				.verificarDisponibilidadeDeIgredientes();
+		super.verificarDisponibilidadeDeIgredientes();
 		boolean temCreme = this.creamerDispenser.contains(QTD_CREME);
 		if (!temCreme) {
 			throw new FaltaDeIngredienteException("");
 		}
-		return temIngredientesDeUmPreto && temCreme;
 	}
 
 }

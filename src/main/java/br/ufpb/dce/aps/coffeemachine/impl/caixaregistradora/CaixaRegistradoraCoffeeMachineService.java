@@ -14,7 +14,10 @@ public class CaixaRegistradoraCoffeeMachineService extends Component {
 
 	private int dollar = 0;
 	private int cents = 0;
+
+	private static int valorDoCafe = 35;
 	private List<Coin> coins;
+	private List<Coin> troco;
 
 	public CaixaRegistradoraCoffeeMachineService(String name) {
 		super(name);
@@ -30,6 +33,32 @@ public class CaixaRegistradoraCoffeeMachineService extends Component {
 		this.cents += dime.getValue() % 100;
 		this.coins.add(dime);
 		factory.getDisplay().info("Total: US$ " + dollar + "." + cents);
+	}
+
+	@Service
+	public void planejarTroco(ComponentsFactory factory) {
+		troco = new ArrayList<Coin>();
+		
+		int totalArrecado = 0;
+
+		for (Coin c : this.coins) {
+			totalArrecado += c.getValue();
+		}
+		int troco = totalArrecado - valorDoCafe;
+		for (Coin coin : Coin.reverse()) {
+			while (coin.getValue() <= troco) {
+				factory.getCashBox().count(coin);
+				troco -= coin.getValue();
+				this.troco.add(coin);
+			}
+		}
+	}
+
+	@Service
+	public void entregarTroco(ComponentsFactory factory) {
+		for (Coin c : this.troco) {
+			factory.getCashBox().release(c);
+		}
 	}
 
 	@Service
