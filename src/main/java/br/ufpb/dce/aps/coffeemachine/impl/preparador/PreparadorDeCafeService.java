@@ -11,11 +11,11 @@ import br.ufpb.dce.aps.coffeemachine.Messages;
 
 public class PreparadorDeCafeService extends Component {
 
-	private Map<Drink, CafeAbstractService> servicosDeCafe;
+	private Map<Drink, CafeService> servicosDeCafe;
 
 	public PreparadorDeCafeService(String name) {
 		super(name);
-		this.servicosDeCafe = new HashMap<Drink, CafeAbstractService>();
+		this.servicosDeCafe = new HashMap<Drink, CafeService>();
 		this.servicosDeCafe.put(Drink.BLACK, new CafePretoService());
 		this.servicosDeCafe.put(Drink.BLACK_SUGAR,
 				new CafePretoComAcucarService());
@@ -27,7 +27,7 @@ public class PreparadorDeCafeService extends Component {
 	@Service
 	public void prepararCafe(Drink drink, ComponentsFactory factory) {
 		try {
-			CafeAbstractService service = this.servicosDeCafe.get(drink);
+			CafeService service = this.servicosDeCafe.get(drink);
 			service.setFactory(factory);
 			service.instanciarDispensers(factory);
 
@@ -40,7 +40,6 @@ public class PreparadorDeCafeService extends Component {
 			service.fazerCafe();
 
 			requestService("entregarTroco", factory);
-			requestService("limparCaixaDeMoedas");
 
 		} catch (FaltaDeIngredienteException e) {
 			factory.getDisplay().warn(e.getMessage());

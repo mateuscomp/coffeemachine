@@ -10,7 +10,7 @@ public class CafeComCremeEComAcucar extends CafeComCremeService {
 	protected static final int QTD_ACUCAR = 1;
 
 	@Override
-	protected void instanciarDispensers(ComponentsFactory factory) {
+	public void instanciarDispensers(ComponentsFactory factory) {
 		super.instanciarDispensers(factory);
 		this.sugarDispenser = factory.getSugarDispenser();
 	}

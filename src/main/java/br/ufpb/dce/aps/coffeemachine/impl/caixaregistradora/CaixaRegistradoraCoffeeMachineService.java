@@ -59,6 +59,7 @@ public class CaixaRegistradoraCoffeeMachineService extends Component {
 		for (Coin c : this.troco) {
 			factory.getCashBox().release(c);
 		}
+		this.limparCaixaDeMoedas();
 	}
 
 	@Service
@@ -88,7 +89,6 @@ public class CaixaRegistradoraCoffeeMachineService extends Component {
 		this.limparCaixaDeMoedas();
 	}
 
-	@Service
 	public void limparCaixaDeMoedas() {
 		this.coins = new ArrayList<Coin>();
 	}

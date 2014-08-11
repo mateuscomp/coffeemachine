@@ -4,14 +4,14 @@ import br.ufpb.dce.aps.coffeemachine.ComponentsFactory;
 import br.ufpb.dce.aps.coffeemachine.Dispenser;
 import br.ufpb.dce.aps.coffeemachine.Messages;
 
-public class CafePretoComAcucarService extends CafeAbstractService {
+public class CafePretoComAcucarService extends CafePretoService {
 
 	protected static final int QTD_ACUCAR = 1;
 
 	private Dispenser sugarDispenser;
 
 	@Override
-	protected void instanciarDispensers(ComponentsFactory factory) {
+	public void instanciarDispensers(ComponentsFactory factory) {
 		super.instanciarDispensers(factory);
 		this.sugarDispenser = factory.getSugarDispenser();
 	}

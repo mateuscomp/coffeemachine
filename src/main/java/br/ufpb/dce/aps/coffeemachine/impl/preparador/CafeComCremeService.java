@@ -10,7 +10,7 @@ public class CafeComCremeService extends CafePretoService {
 	private static final double QTD_CREME = 1;
 
 	@Override
-	protected void instanciarDispensers(ComponentsFactory factory) {
+	public void instanciarDispensers(ComponentsFactory factory) {
 		super.instanciarDispensers(factory);
 		this.creamerDispenser = factory.getCreamerDispenser();
 	}
