@@ -38,7 +38,7 @@ public class CaixaRegistradoraCoffeeMachineService extends Component {
 	@Service
 	public void planejarTroco(ComponentsFactory factory) {
 		troco = new ArrayList<Coin>();
-		
+
 		int totalArrecado = 0;
 
 		for (Coin c : this.coins) {
@@ -68,6 +68,11 @@ public class CaixaRegistradoraCoffeeMachineService extends Component {
 		}
 		factory.getDisplay().warn(Messages.CANCEL);
 		this.removerMoedas(factory);
+		this.mostrarMensagemDeInserirMoedas(factory);
+	}
+
+	@Service
+	public void mostrarMensagemDeInserirMoedas(ComponentsFactory factory) {
 		factory.getDisplay().info(Messages.INSERT_COINS);
 	}
 

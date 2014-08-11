@@ -27,16 +27,18 @@ public abstract class CafeAbstractService {
 		this.waterDispenser = factory.getWaterDispenser();
 		this.coffeePowderDispenser = factory.getCoffeePowderDispenser();
 		this.drinkDispenser = factory.getDrinkDispenser();
-		
+
 		this.display = factory.getDisplay();
 	}
 
 	public void verificarDisponibilidadeDeIgredientes()
 			throws FaltaDeIngredienteException {
+
 		boolean temCopoDisponivel = cupDispenser.contains(QTD_COPOS);
 		if (!temCopoDisponivel) {
 			throw new FaltaDeIngredienteException(Messages.OUT_OF_CUP);
 		}
+
 		boolean temAguaDisponivel = waterDispenser.contains(QTD_AGUA);
 		if (!temAguaDisponivel) {
 			throw new FaltaDeIngredienteException(Messages.OUT_OF_WATER);
@@ -46,6 +48,14 @@ public abstract class CafeAbstractService {
 		if (!temPoDeCafe) {
 			throw new FaltaDeIngredienteException(Messages.OUT_OF_COFFEE_POWDER);
 		}
+	}
+
+	public void fazerCafe() {
+		this.display.info(Messages.RELEASING);
+		this.cupDispenser.release(QTD_COPOS);
+		
+		this.drinkDispenser.release(1);
+		this.display.info(Messages.TAKE_DRINK);
 	}
 
 	public void setFactory(ComponentsFactory factory) {

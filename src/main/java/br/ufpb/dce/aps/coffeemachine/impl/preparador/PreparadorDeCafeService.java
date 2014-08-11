@@ -33,10 +33,15 @@ public class PreparadorDeCafeService extends Component {
 
 			service.verificarDisponibilidadeDeIgredientes();
 			requestService("planejarTroco", factory);
+
 			factory.getDisplay().info(Messages.MIXING);
+
 			service.adicionarIngredientes();
+			service.fazerCafe();
+
 			requestService("entregarTroco", factory);
 			requestService("limparCaixaDeMoedas");
+
 		} catch (FaltaDeIngredienteException e) {
 			factory.getDisplay().warn(e.getMessage());
 			requestService("removerMoedas", factory);

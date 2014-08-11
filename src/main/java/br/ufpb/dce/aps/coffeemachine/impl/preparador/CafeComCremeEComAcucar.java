@@ -3,7 +3,6 @@ package br.ufpb.dce.aps.coffeemachine.impl.preparador;
 import static org.mockito.Matchers.anyDouble;
 import br.ufpb.dce.aps.coffeemachine.ComponentsFactory;
 import br.ufpb.dce.aps.coffeemachine.Dispenser;
-import br.ufpb.dce.aps.coffeemachine.Messages;
 
 public class CafeComCremeEComAcucar extends CafeComCremeService {
 
@@ -21,11 +20,6 @@ public class CafeComCremeEComAcucar extends CafeComCremeService {
 		this.waterDispenser.release(anyDouble());
 		this.creamerDispenser.release(anyDouble());
 		this.sugarDispenser.release(anyDouble());
-
-		this.display.info(Messages.RELEASING);
-		this.cupDispenser.release(1);
-		this.drinkDispenser.release(anyDouble());
-		this.display.info(Messages.TAKE_DRINK);
 	}
 
 	@Override
