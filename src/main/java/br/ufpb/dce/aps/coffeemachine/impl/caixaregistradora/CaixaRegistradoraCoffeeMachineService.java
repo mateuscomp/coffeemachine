@@ -36,22 +36,32 @@ public class CaixaRegistradoraCoffeeMachineService extends Component {
 	}
 
 	@Service
-	public void planejarTroco(ComponentsFactory factory) {
+	public boolean planejarTroco(ComponentsFactory factory) {
 		troco = new ArrayList<Coin>();
 
 		int totalArrecado = 0;
-
 		for (Coin c : this.coins) {
 			totalArrecado += c.getValue();
 		}
 		int troco = totalArrecado - valorDoCafe;
+		boolean necessitaDeTroco = troco > 0;
+
 		for (Coin coin : Coin.reverse()) {
 			while (coin.getValue() <= troco) {
-				factory.getCashBox().count(coin);
+				if (factory.getCashBox().count(coin) == 0) {
+					break;
+				}
 				troco -= coin.getValue();
 				this.troco.add(coin);
 			}
 		}
+
+		if (necessitaDeTroco && this.troco.isEmpty()) {
+			factory.getDisplay().warn(Messages.NO_ENOUGHT_CHANGE);
+			this.removerMoedas(factory);
+			return false;
+		}
+		return true;
 	}
 
 	@Service

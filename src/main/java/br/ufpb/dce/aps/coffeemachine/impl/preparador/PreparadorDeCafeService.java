@@ -34,14 +34,16 @@ public class PreparadorDeCafeService extends Component {
 					"verificarValorInserido", factory, service.getValorDoCafe());
 			if (temDinheiro) {
 				service.verificarDisponibilidadeDeIgredientes();
-				requestService("planejarTroco", factory);
+				boolean temTroco = (Boolean) requestService("planejarTroco",
+						factory);
+				if (temTroco) {
+					factory.getDisplay().info(Messages.MIXING);
 
-				factory.getDisplay().info(Messages.MIXING);
+					service.adicionarIngredientes();
+					service.fazerCafe();
 
-				service.adicionarIngredientes();
-				service.fazerCafe();
-
-				requestService("entregarTroco", factory);
+					requestService("entregarTroco", factory);
+				}
 			}
 
 		} catch (FaltaDeIngredienteException e) {
