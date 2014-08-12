@@ -30,16 +30,19 @@ public class PreparadorDeCafeService extends Component {
 			CafeService service = this.servicosDeCafe.get(drink);
 			service.setFactory(factory);
 			service.instanciarDispensers(factory);
+			boolean temDinheiro = (Boolean) requestService(
+					"verificarValorInserido", factory, service.getValorDoCafe());
+			if (temDinheiro) {
+				service.verificarDisponibilidadeDeIgredientes();
+				requestService("planejarTroco", factory);
 
-			service.verificarDisponibilidadeDeIgredientes();
-			requestService("planejarTroco", factory);
+				factory.getDisplay().info(Messages.MIXING);
 
-			factory.getDisplay().info(Messages.MIXING);
+				service.adicionarIngredientes();
+				service.fazerCafe();
 
-			service.adicionarIngredientes();
-			service.fazerCafe();
-
-			requestService("entregarTroco", factory);
+				requestService("entregarTroco", factory);
+			}
 
 		} catch (FaltaDeIngredienteException e) {
 			factory.getDisplay().warn(e.getMessage());

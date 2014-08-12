@@ -8,5 +8,6 @@ public interface CafeService {
 	public void adicionarIngredientes();
 	public void fazerCafe();
 	public void setFactory(ComponentsFactory factory);
+	public int getValorDoCafe();
 
 }

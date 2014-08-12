@@ -92,4 +92,21 @@ public class CaixaRegistradoraCoffeeMachineService extends Component {
 	public void limparCaixaDeMoedas() {
 		this.coins = new ArrayList<Coin>();
 	}
+
+	@Service
+	public boolean verificarValorInserido(ComponentsFactory factory,
+			int valorDoCafe) {
+		int total = 0;
+		for (Coin c : this.coins) {
+			total += c.getValue();
+		}
+
+		if (total < valorDoCafe) {
+			// throw new MyCoffeeMachineException(Messages.NO_ENOUGHT_MONEY);
+			factory.getDisplay().warn(Messages.NO_ENOUGHT_MONEY);
+			this.removerMoedas(factory);
+			return false;
+		}
+		return true;
+	}
 }
