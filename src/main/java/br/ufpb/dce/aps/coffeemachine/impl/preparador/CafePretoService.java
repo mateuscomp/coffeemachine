@@ -17,8 +17,8 @@ public class CafePretoService implements CafeService {
 	protected Display display;
 
 	protected static final int QTD_COPOS = 1;
-	protected static final double QTD_AGUA = 0.5;
-	protected static final double QTD_PO_DE_CAFE = 1.5;
+	protected static final int QTD_AGUA = 100;
+	protected static final int QTD_PO_DE_CAFE = 15;
 
 	private int valorDoCafe = 35;
 
@@ -59,7 +59,7 @@ public class CafePretoService implements CafeService {
 		this.display.info(Messages.RELEASING);
 		this.cupDispenser.release(QTD_COPOS);
 
-		this.drinkDispenser.release(1);
+		this.drinkDispenser.release(QTD_AGUA);
 		this.display.info(Messages.TAKE_DRINK);
 	}
 
