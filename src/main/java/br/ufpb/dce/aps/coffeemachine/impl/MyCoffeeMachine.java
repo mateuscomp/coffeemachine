@@ -6,7 +6,7 @@ import br.ufpb.dce.aps.coffeemachine.Coin;
 import br.ufpb.dce.aps.coffeemachine.ComponentsFactory;
 import br.ufpb.dce.aps.coffeemachine.Drink;
 import br.ufpb.dce.aps.coffeemachine.impl.caixaregistradora.CaixaRegistradoraCoffeeMachineService;
-import br.ufpb.dce.aps.coffeemachine.impl.preparador.PreparadorDeCafeService;
+import br.ufpb.dce.aps.coffeemachine.impl.preparador.PreparadorDeDrinkService;
 
 public class MyCoffeeMachine extends ComporFacade implements CoffeeMachine {
 
@@ -21,7 +21,7 @@ public class MyCoffeeMachine extends ComporFacade implements CoffeeMachine {
 	protected void addComponents() {
 		super.addComponents();
 		add(new CaixaRegistradoraCoffeeMachineService("displayCoffeeMachine"));
-		add(new PreparadorDeCafeService("fabricadorDeCafe"));
+		add(new PreparadorDeDrinkService("fabricadorDeCafe"));
 	}
 
 	public void insertCoin(Coin dime) {

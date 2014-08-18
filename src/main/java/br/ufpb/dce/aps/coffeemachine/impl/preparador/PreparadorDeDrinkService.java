@@ -9,33 +9,33 @@ import br.ufpb.dce.aps.coffeemachine.ComponentsFactory;
 import br.ufpb.dce.aps.coffeemachine.Drink;
 import br.ufpb.dce.aps.coffeemachine.Messages;
 
-public class PreparadorDeCafeService extends Component {
+public class PreparadorDeDrinkService extends Component {
 
-	private Map<Drink, CafeService> servicosDeCafe;
+	private Map<Drink, CafeService> servicosDeDrink;
 
-	public PreparadorDeCafeService(String name) {
+	public PreparadorDeDrinkService(String name) {
 		super(name);
-		this.servicosDeCafe = new HashMap<Drink, CafeService>();
-		this.servicosDeCafe.put(Drink.BLACK, new CafePretoService());
-		this.servicosDeCafe.put(Drink.BLACK_SUGAR,
+		this.servicosDeDrink = new HashMap<Drink, CafeService>();
+		this.servicosDeDrink.put(Drink.BLACK, new CafePretoService());
+		this.servicosDeDrink.put(Drink.BLACK_SUGAR,
 				new CafePretoComAcucarService());
-		this.servicosDeCafe.put(Drink.WHITE, new CafeComCremeService());
-		this.servicosDeCafe
-				.put(Drink.WHITE_SUGAR, new CafeComCremeEComAcucar());
+		this.servicosDeDrink.put(Drink.WHITE, new CafeComCremeService());
+		this.servicosDeDrink.put(Drink.WHITE_SUGAR,
+				new CafeComCremeEComAcucar());
+		this.servicosDeDrink.put(Drink.BOUILLON, new CaldoDeSopaService());
 	}
 
 	@Service
 	public void prepararCafe(Drink drink, ComponentsFactory factory) {
 		try {
-			CafeService service = this.servicosDeCafe.get(drink);
-			service.setFactory(factory);
+			CafeService service = this.servicosDeDrink.get(drink);
 			service.instanciarDispensers(factory);
 			boolean temDinheiro = (Boolean) requestService(
 					"verificarValorInserido", factory, service.getValorDoCafe());
 			if (temDinheiro) {
 				service.verificarDisponibilidadeDeIgredientes();
 				boolean temTroco = (Boolean) requestService("planejarTroco",
-						factory);
+						factory, service.getValorDoCafe());
 				if (temTroco) {
 					factory.getDisplay().info(Messages.MIXING);
 

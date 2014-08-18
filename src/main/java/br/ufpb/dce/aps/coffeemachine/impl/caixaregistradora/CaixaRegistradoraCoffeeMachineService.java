@@ -15,7 +15,7 @@ public class CaixaRegistradoraCoffeeMachineService extends Component {
 	private int dollar = 0;
 	private int cents = 0;
 
-	private static int valorDoCafe = 35;
+//	private static int valorDoCafe = 35;
 	private List<Coin> coins;
 	private List<Coin> troco;
 
@@ -36,8 +36,8 @@ public class CaixaRegistradoraCoffeeMachineService extends Component {
 	}
 
 	@Service
-	public boolean planejarTroco(ComponentsFactory factory) {
-		int troco = calcularTroco();
+	public boolean planejarTroco(ComponentsFactory factory, int valorDoCafe) {
+		int troco = calcularTroco(valorDoCafe);
 		boolean necessitaDeTroco = troco > 0;
 
 		for (Coin coin : Coin.reverse()) {
@@ -64,7 +64,7 @@ public class CaixaRegistradoraCoffeeMachineService extends Component {
 		return true;
 	}
 
-	private int calcularTroco() {
+	private int calcularTroco(int valorDoCafe) {
 		troco = new ArrayList<Coin>();
 
 		int totalArrecado = 0;
@@ -123,7 +123,6 @@ public class CaixaRegistradoraCoffeeMachineService extends Component {
 		}
 
 		if (total < valorDoCafe) {
-			// throw new MyCoffeeMachineException(Messages.NO_ENOUGHT_MONEY);
 			factory.getDisplay().warn(Messages.NO_ENOUGHT_MONEY);
 			this.removerMoedas(factory);
 			return false;

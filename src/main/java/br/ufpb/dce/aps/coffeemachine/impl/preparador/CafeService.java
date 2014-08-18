@@ -7,7 +7,8 @@ public interface CafeService {
 	public void verificarDisponibilidadeDeIgredientes() throws FaltaDeIngredienteException;
 	public void adicionarIngredientes();
 	public void fazerCafe();
-	public void setFactory(ComponentsFactory factory);
+
+	//	public void setFactory(ComponentsFactory factory);
 	public int getValorDoCafe();
 
 }
