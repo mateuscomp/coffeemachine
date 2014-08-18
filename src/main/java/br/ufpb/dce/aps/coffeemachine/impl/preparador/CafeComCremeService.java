@@ -8,7 +8,7 @@ public class CafeComCremeService extends CafePretoService {
 
 	protected Dispenser creamerDispenser;
 
-	private static final double QTD_CREME = 1;
+	protected static final double QTD_CREME = 1;
 
 	@Override
 	public void instanciarDispensers(ComponentsFactory factory) {

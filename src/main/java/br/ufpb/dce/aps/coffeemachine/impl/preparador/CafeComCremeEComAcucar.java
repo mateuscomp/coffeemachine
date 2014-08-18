@@ -1,13 +1,13 @@
 package br.ufpb.dce.aps.coffeemachine.impl.preparador;
 
-import static org.mockito.Matchers.anyDouble;
 import br.ufpb.dce.aps.coffeemachine.ComponentsFactory;
 import br.ufpb.dce.aps.coffeemachine.Dispenser;
+import br.ufpb.dce.aps.coffeemachine.Messages;
 
 public class CafeComCremeEComAcucar extends CafeComCremeService {
 
 	private Dispenser sugarDispenser;
-	protected static final int QTD_ACUCAR = 1;
+	protected static final int QTD_ACUCAR = 5;
 
 	@Override
 	public void instanciarDispensers(ComponentsFactory factory) {
@@ -16,10 +16,10 @@ public class CafeComCremeEComAcucar extends CafeComCremeService {
 	}
 
 	public void adicionarIngredientes() {
-		this.coffeePowderDispenser.release(anyDouble());
-		this.waterDispenser.release(anyDouble());
-		this.creamerDispenser.release(anyDouble());
-		this.sugarDispenser.release(anyDouble());
+		this.coffeePowderDispenser.release(QTD_PO_DE_CAFE);
+		this.waterDispenser.release(QTD_AGUA);
+		this.creamerDispenser.release(QTD_CREME);
+		this.sugarDispenser.release(QTD_ACUCAR);
 	}
 
 	@Override
@@ -27,6 +27,9 @@ public class CafeComCremeEComAcucar extends CafeComCremeService {
 			throws FaltaDeIngredienteException {
 
 		super.verificarDisponibilidadeDeIgredientes();
-		this.sugarDispenser.contains(QTD_ACUCAR);
+		boolean temAcucar = this.sugarDispenser.contains(QTD_ACUCAR);
+		if (!temAcucar) {
+			throw new FaltaDeIngredienteException(Messages.OUT_OF_SUGAR);
+		}
 	}
 }

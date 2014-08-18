@@ -6,9 +6,8 @@ import br.ufpb.dce.aps.coffeemachine.Messages;
 
 public class CafePretoComAcucarService extends CafePretoService {
 
-	protected static final int QTD_ACUCAR = 1;
-
 	private Dispenser sugarDispenser;
+	protected static final int QTD_ACUCAR = 5;
 
 	@Override
 	public void instanciarDispensers(ComponentsFactory factory) {
