@@ -37,22 +37,22 @@ public class CaixaRegistradoraCoffeeMachineService extends Component {
 
 	@Service
 	public boolean planejarTroco(ComponentsFactory factory) {
-		troco = new ArrayList<Coin>();
-
-		int totalArrecado = 0;
-		for (Coin c : this.coins) {
-			totalArrecado += c.getValue();
-		}
-		int troco = totalArrecado - valorDoCafe;
+		int troco = calcularTroco();
 		boolean necessitaDeTroco = troco > 0;
 
 		for (Coin coin : Coin.reverse()) {
 			while (coin.getValue() <= troco) {
-				if (factory.getCashBox().count(coin) == 0) {
+				int qtdDeMoedasDisponiveis = factory.getCashBox().count(coin);
+				int qtdMoedasASeremInseridas = troco / coin.getValue();
+
+				if (qtdDeMoedasDisponiveis >= qtdMoedasASeremInseridas) {
+					for (int i = 0; i < qtdMoedasASeremInseridas; i++) {
+						this.troco.add(coin);
+						troco -= coin.getValue();
+					}
+				} else {
 					break;
 				}
-				troco -= coin.getValue();
-				this.troco.add(coin);
 			}
 		}
 
@@ -62,6 +62,17 @@ public class CaixaRegistradoraCoffeeMachineService extends Component {
 			return false;
 		}
 		return true;
+	}
+
+	private int calcularTroco() {
+		troco = new ArrayList<Coin>();
+
+		int totalArrecado = 0;
+		for (Coin c : this.coins) {
+			totalArrecado += c.getValue();
+		}
+		int troco = totalArrecado - valorDoCafe;
+		return troco;
 	}
 
 	@Service

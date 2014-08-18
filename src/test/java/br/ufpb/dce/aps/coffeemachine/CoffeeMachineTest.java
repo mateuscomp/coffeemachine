@@ -378,7 +378,7 @@ public abstract class CoffeeMachineTest {
 		verifyDrinkRelease(inOrder);
 		verifyNewSession(inOrder);
 	}
-	
+
 	@Test
 	public void selectWhiteSugarWithChange() {
 		InOrder inOrder = prepareScenarioWithCoins(Coin.halfDollar);
@@ -412,9 +412,9 @@ public abstract class CoffeeMachineTest {
 
 		// Verification
 		inOrder.verify(display).warn(Messages.NO_ENOUGHT_MONEY);
-		verifyCloseSession(inOrder);	
+		verifyCloseSession(inOrder);
 
-		//Preparing scenario: New session
+		// Preparing scenario: New session
 		insertCoins(Coin.dime);
 		inOrder = resetMocks();
 
@@ -428,15 +428,15 @@ public abstract class CoffeeMachineTest {
 		inOrder.verify(display).warn(Messages.NO_ENOUGHT_MONEY);
 		verifyCloseSession(inOrder, Coin.dime);
 	}
-	
+
 	@Test
 	public void selectBlackWithoutEnoughtChange() {
 		InOrder inOrder = prepareScenarioWithCoins(Coin.halfDollar);
 
 		// Simulating returns
-		doCount(Coin.dime, 0); 
+		doCount(Coin.dime, 0);
 		doCount(Coin.nickel, 0);
-		doCount(Coin.penny, 0); //Out of change
+		doCount(Coin.penny, 0); // Out of change
 		doContainWhiteIngredients();
 
 		// Operation under test
@@ -448,7 +448,7 @@ public abstract class CoffeeMachineTest {
 		inOrder.verify(display).warn(Messages.NO_ENOUGHT_CHANGE);
 		verifyCloseSession(inOrder, Coin.halfDollar);
 	}
-	
+
 	@Test
 	public void selectWhiteWithNonTrivialChange() {
 		InOrder inOrder = prepareScenarioWithCoins(Coin.halfDollar);
@@ -470,8 +470,6 @@ public abstract class CoffeeMachineTest {
 		inOrder.verify(cashBox, times(3)).release(Coin.nickel);
 		verifyNewSession(inOrder);
 	}
-
-
 
 	private void doCount(Coin coin, int amount) {
 		when(cashBox.count(coin)).thenReturn(amount);
