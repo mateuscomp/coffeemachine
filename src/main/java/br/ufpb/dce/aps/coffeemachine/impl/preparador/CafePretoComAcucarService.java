@@ -17,8 +17,8 @@ public class CafePretoComAcucarService extends CafePretoService {
 
 	@Override
 	public void adicionarIngredientes() {
-		this.coffeePowderDispenser.release(QTD_PO_DE_CAFE);
-		this.waterDispenser.release(QTD_AGUA);
+		this.coffeePowderDispenser.release(qtdDePoDeCafe);
+		this.waterDispenser.release(qtdDeAgua);
 		this.sugarDispenser.release(QTD_ACUCAR);
 	}
 

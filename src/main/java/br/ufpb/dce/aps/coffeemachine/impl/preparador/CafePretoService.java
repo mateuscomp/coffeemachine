@@ -16,15 +16,17 @@ public class CafePretoService implements CafeService {
 
 	protected Display display;
 
-	protected static final int QTD_COPOS = 1;
-	protected static final int QTD_AGUA = 100;
-	protected static final int QTD_PO_DE_CAFE = 15;
+	protected int qtdDeCopos = 1;
+	protected int qtdDeAgua = 100;
+	protected int qtdDePoDeCafe = 15;
 
 	private int valorDoCafe = 35;
 
+	private int qtdDoDrink = 100;
+
 	public void adicionarIngredientes() {
-		this.coffeePowderDispenser.release(QTD_PO_DE_CAFE);
-		this.waterDispenser.release(QTD_AGUA);
+		this.coffeePowderDispenser.release(qtdDePoDeCafe);
+		this.waterDispenser.release(qtdDeAgua);
 	}
 
 	public void instanciarDispensers(ComponentsFactory factory) {
@@ -39,17 +41,17 @@ public class CafePretoService implements CafeService {
 	public void verificarDisponibilidadeDeIgredientes()
 			throws FaltaDeIngredienteException {
 
-		boolean temCopoDisponivel = cupDispenser.contains(QTD_COPOS);
+		boolean temCopoDisponivel = cupDispenser.contains(qtdDeCopos);
 		if (!temCopoDisponivel) {
 			throw new FaltaDeIngredienteException(Messages.OUT_OF_CUP);
 		}
 
-		boolean temAguaDisponivel = waterDispenser.contains(QTD_AGUA);
+		boolean temAguaDisponivel = waterDispenser.contains(qtdDeAgua);
 		if (!temAguaDisponivel) {
 			throw new FaltaDeIngredienteException(Messages.OUT_OF_WATER);
 		}
 		boolean temPoDeCafe = this.coffeePowderDispenser
-				.contains(QTD_PO_DE_CAFE);
+				.contains(qtdDePoDeCafe);
 		if (!temPoDeCafe) {
 			throw new FaltaDeIngredienteException(Messages.OUT_OF_COFFEE_POWDER);
 		}
@@ -57,9 +59,9 @@ public class CafePretoService implements CafeService {
 
 	public void fazerCafe() {
 		this.display.info(Messages.RELEASING);
-		this.cupDispenser.release(QTD_COPOS);
+		this.cupDispenser.release(qtdDeCopos);
 
-		this.drinkDispenser.release(QTD_AGUA);
+		this.drinkDispenser.release(qtdDoDrink);
 		this.display.info(Messages.TAKE_DRINK);
 	}
 

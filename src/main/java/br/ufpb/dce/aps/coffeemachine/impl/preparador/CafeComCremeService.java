@@ -8,7 +8,14 @@ public class CafeComCremeService extends CafePretoService {
 
 	protected Dispenser creamerDispenser;
 
-	protected static final double QTD_CREME = 1;
+	protected int qtdDeCreme = 20;
+	
+	public CafeComCremeService(){
+		super();
+		this.qtdDeCopos = 1;
+		this.qtdDeAgua = 80;
+		this.qtdDePoDeCafe = 15;
+	}
 
 	@Override
 	public void instanciarDispensers(ComponentsFactory factory) {
@@ -17,16 +24,16 @@ public class CafeComCremeService extends CafePretoService {
 	}
 
 	public void adicionarIngredientes() {
-		this.coffeePowderDispenser.release(QTD_PO_DE_CAFE);
-		this.waterDispenser.release(QTD_AGUA);
-		this.creamerDispenser.release(QTD_CREME);
+		this.coffeePowderDispenser.release(qtdDePoDeCafe);
+		this.waterDispenser.release(qtdDeAgua);
+		this.creamerDispenser.release(qtdDeCreme);
 	}
 
 	public void verificarDisponibilidadeDeIgredientes()
 			throws FaltaDeIngredienteException {
 
 		super.verificarDisponibilidadeDeIgredientes();
-		boolean temCreme = this.creamerDispenser.contains(QTD_CREME);
+		boolean temCreme = this.creamerDispenser.contains(qtdDeCreme);
 		if (!temCreme) {
 			throw new FaltaDeIngredienteException(Messages.OUT_OF_CREAMER);
 		}
