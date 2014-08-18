@@ -471,6 +471,27 @@ public abstract class CoffeeMachineTest {
 		verifyNewSession(inOrder);
 	}
 
+	@Test
+	public void selectWhiteWithoutCreamer() {
+		InOrder inOrder = prepareScenarioWithCoins(Coin.dollar);
+
+		// Simulating returns
+		doContain(coffeePowderDispenser, anyDouble());
+		doContain(waterDispenser, anyDouble());
+		doContain(cupDispenser, 1);
+		doNotContain(creamerDispenser, anyDouble()); // Out of Creamer!
+
+		// Operation under test
+		facade.select(Drink.WHITE);
+
+		// Verification
+		inOrder.verify(cupDispenser).contains(1);
+		inOrder.verify(waterDispenser).contains(anyDouble());
+		inOrder.verify(coffeePowderDispenser).contains(anyDouble());
+		inOrder.verify(creamerDispenser).contains(anyDouble());
+		verifyOutOfIngredient(inOrder, Messages.OUT_OF_CREAMER, Coin.dollar);
+	}
+
 	private void doCount(Coin coin, int amount) {
 		when(cashBox.count(coin)).thenReturn(amount);
 	}

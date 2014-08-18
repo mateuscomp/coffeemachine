@@ -2,6 +2,7 @@ package br.ufpb.dce.aps.coffeemachine.impl.preparador;
 
 import br.ufpb.dce.aps.coffeemachine.ComponentsFactory;
 import br.ufpb.dce.aps.coffeemachine.Dispenser;
+import br.ufpb.dce.aps.coffeemachine.Messages;
 
 public class CafeComCremeService extends CafePretoService {
 
@@ -27,7 +28,7 @@ public class CafeComCremeService extends CafePretoService {
 		super.verificarDisponibilidadeDeIgredientes();
 		boolean temCreme = this.creamerDispenser.contains(QTD_CREME);
 		if (!temCreme) {
-			throw new FaltaDeIngredienteException("");
+			throw new FaltaDeIngredienteException(Messages.OUT_OF_CREAMER);
 		}
 	}
 
