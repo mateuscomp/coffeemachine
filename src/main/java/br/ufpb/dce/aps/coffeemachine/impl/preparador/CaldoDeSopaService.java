@@ -24,7 +24,7 @@ public class CaldoDeSopaService implements CafeService {
 		this.cupDispenser = factory.getCupDispenser();
 		this.waterDispenser = factory.getWaterDispenser();
 		this.bouillonDispenser = factory.getBouillonDispenser();
-		this.drinkDispenser =  factory.getDrinkDispenser();
+		this.drinkDispenser = factory.getDrinkDispenser();
 
 		this.display = factory.getDisplay();
 
@@ -45,7 +45,8 @@ public class CaldoDeSopaService implements CafeService {
 
 		boolean temPoDeCaldo = this.bouillonDispenser.contains(qtdDePoDeCaldo);
 		if (!temPoDeCaldo) {
-			throw new FaltaDeIngredienteException("");
+			throw new FaltaDeIngredienteException(
+					Messages.OUT_OF_BOUILLON_POWDER);
 		}
 
 	}
