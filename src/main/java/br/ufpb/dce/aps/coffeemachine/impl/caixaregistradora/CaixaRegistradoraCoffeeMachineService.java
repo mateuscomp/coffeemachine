@@ -15,7 +15,6 @@ public class CaixaRegistradoraCoffeeMachineService extends Component {
 	private int dollar = 0;
 	private int cents = 0;
 
-//	private static int valorDoCafe = 35;
 	private List<Coin> coins;
 	private List<Coin> troco;
 
@@ -96,6 +95,11 @@ public class CaixaRegistradoraCoffeeMachineService extends Component {
 	@Service
 	public void mostrarMensagemDeInserirMoedas(ComponentsFactory factory) {
 		factory.getDisplay().info(Messages.INSERT_COINS);
+	}
+
+	@Service
+	public void lerCracha(ComponentsFactory factory) {
+		factory.getDisplay().info(Messages.BADGE_READ);
 	}
 
 	@Service

@@ -33,6 +33,11 @@ public class MyCoffeeMachine extends ComporFacade implements CoffeeMachine {
 
 	public void setFactory(ComponentsFactory factory) {
 		this.factory = factory;
-		requestService("mostrarMensagemDeInserirMoedas", factory);
+		requestService("mostrarMensagemDeInserirMoedas", this.factory);
+	}
+
+	public void readBadge(int badgeCode) {
+		requestService("lerCracha", this.factory);
+
 	}
 }
