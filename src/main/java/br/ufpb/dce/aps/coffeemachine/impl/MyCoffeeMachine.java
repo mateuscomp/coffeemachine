@@ -12,11 +12,6 @@ public class MyCoffeeMachine extends ComporFacade implements CoffeeMachine {
 
 	private ComponentsFactory factory;
 
-	public MyCoffeeMachine(ComponentsFactory factory) {
-		this.factory = factory;
-		requestService("mostrarMensagemDeInserirMoedas", factory);
-	}
-
 	@Override
 	protected void addComponents() {
 		super.addComponents();
@@ -34,5 +29,10 @@ public class MyCoffeeMachine extends ComporFacade implements CoffeeMachine {
 
 	public void select(Drink drink) {
 		requestService("prepararCafe", drink, this.factory);
+	}
+
+	public void setFactory(ComponentsFactory factory) {
+		this.factory = factory;
+		requestService("mostrarMensagemDeInserirMoedas", factory);
 	}
 }
