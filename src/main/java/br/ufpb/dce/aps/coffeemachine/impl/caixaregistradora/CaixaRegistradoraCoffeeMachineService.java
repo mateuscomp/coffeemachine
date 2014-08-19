@@ -18,6 +18,8 @@ public class CaixaRegistradoraCoffeeMachineService extends Component {
 	private List<Coin> coins;
 	private List<Coin> troco;
 
+	private ModalidadePagamento modalidadePagamento;
+
 	public CaixaRegistradoraCoffeeMachineService(String name) {
 		super(name);
 		this.coins = new ArrayList<Coin>();
@@ -25,13 +27,26 @@ public class CaixaRegistradoraCoffeeMachineService extends Component {
 
 	@Service
 	public void receberMoedas(Coin dime, ComponentsFactory factory) {
+		this.coins.add(dime);
+		if (modalidadePagamento != null
+				&& modalidadePagamento.equals(ModalidadePagamento.CARTAO)) {
+			factory.getDisplay().warn(Messages.CAN_NOT_INSERT_COINS);
+			this.removerMoedas(factory);
+			return;
+		}
+		this.modalidadePagamento = ModalidadePagamento.DINHEIRO;
 		if (dime == null) {
 			throw new CoffeeMachineException("");
 		}
 		this.dollar += dime.getValue() / 100;
 		this.cents += dime.getValue() % 100;
-		this.coins.add(dime);
 		factory.getDisplay().info("Total: US$ " + dollar + "." + cents);
+	}
+
+	@Service
+	public void lerCracha(ComponentsFactory factory) {
+		factory.getDisplay().info(Messages.BADGE_READ);
+		this.modalidadePagamento = ModalidadePagamento.CARTAO;
 	}
 
 	@Service
@@ -95,11 +110,6 @@ public class CaixaRegistradoraCoffeeMachineService extends Component {
 	@Service
 	public void mostrarMensagemDeInserirMoedas(ComponentsFactory factory) {
 		factory.getDisplay().info(Messages.INSERT_COINS);
-	}
-
-	@Service
-	public void lerCracha(ComponentsFactory factory) {
-		factory.getDisplay().info(Messages.BADGE_READ);
 	}
 
 	@Service
