@@ -45,6 +45,12 @@ public class CaixaRegistradoraCoffeeMachineService extends Component {
 
 	@Service
 	public void lerCracha(ComponentsFactory factory) {
+		if (modalidadePagamento != null
+				&& modalidadePagamento.equals(ModalidadePagamento.DINHEIRO)) {
+			factory.getDisplay().warn(Messages.CAN_NOT_READ_BADGE);
+			return;
+		}
+
 		factory.getDisplay().info(Messages.BADGE_READ);
 		this.modalidadePagamento = ModalidadePagamento.CARTAO;
 	}
