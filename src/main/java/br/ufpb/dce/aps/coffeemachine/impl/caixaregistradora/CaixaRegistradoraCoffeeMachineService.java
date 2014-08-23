@@ -167,4 +167,11 @@ public class CaixaRegistradoraCoffeeMachineService extends Component {
 		}
 		return true;
 	}
+
+	@Service
+	public void apresentarCardapio(ComponentsFactory factory) {
+		factory.getButtonDisplay().show("Black: $0.35", "White: $0.35",
+				"Black with sugar: $0.35", "White with sugar: $0.35",
+				"Bouillon: $0.25", null, null);
+	}
 }

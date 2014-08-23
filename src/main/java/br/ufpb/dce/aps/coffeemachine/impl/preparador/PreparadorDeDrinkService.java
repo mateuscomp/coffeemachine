@@ -5,30 +5,29 @@ import java.util.Map;
 
 import net.compor.frameworks.jcf.api.Component;
 import net.compor.frameworks.jcf.api.Service;
+import br.ufpb.dce.aps.coffeemachine.Button;
 import br.ufpb.dce.aps.coffeemachine.ComponentsFactory;
-import br.ufpb.dce.aps.coffeemachine.Drink;
 import br.ufpb.dce.aps.coffeemachine.Messages;
 
 public class PreparadorDeDrinkService extends Component {
 
-	private Map<Drink, CafeService> servicosDeDrink;
+	private Map<Button, CafeService> servicosDeDrink;
 
 	public PreparadorDeDrinkService(String name) {
 		super(name);
-		this.servicosDeDrink = new HashMap<Drink, CafeService>();
-		this.servicosDeDrink.put(Drink.BLACK, new CafePretoService());
-		this.servicosDeDrink.put(Drink.BLACK_SUGAR,
+		this.servicosDeDrink = new HashMap<Button, CafeService>();
+		this.servicosDeDrink.put(Button.BUTTON_1, new CafePretoService());
+		this.servicosDeDrink.put(Button.BUTTON_2, new CafeComCremeService());
+		this.servicosDeDrink.put(Button.BUTTON_3,
 				new CafePretoComAcucarService());
-		this.servicosDeDrink.put(Drink.WHITE, new CafeComCremeService());
-		this.servicosDeDrink.put(Drink.WHITE_SUGAR,
-				new CafeComCremeEComAcucar());
-		this.servicosDeDrink.put(Drink.BOUILLON, new CaldoDeSopaService());
+		this.servicosDeDrink.put(Button.BUTTON_4, new CafeComCremeEComAcucar());
+		this.servicosDeDrink.put(Button.BUTTON_5, new CaldoDeSopaService());
 	}
 
 	@Service
-	public void prepararCafe(Drink drink, ComponentsFactory factory) {
+	public void prepararCafe(Button button, ComponentsFactory factory) {
 		try {
-			CafeService service = this.servicosDeDrink.get(drink);
+			CafeService service = this.servicosDeDrink.get(button);
 			service.instanciarDispensers(factory);
 			boolean temDinheiro = (Boolean) requestService(
 					"verificarValorInserido", factory, service.getValorDoCafe());

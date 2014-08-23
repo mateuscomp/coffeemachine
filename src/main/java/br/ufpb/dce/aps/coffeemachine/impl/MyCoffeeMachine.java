@@ -1,10 +1,11 @@
 package br.ufpb.dce.aps.coffeemachine.impl;
 
+import static org.mockito.Mockito.verify;
 import net.compor.frameworks.jcf.api.ComporFacade;
+import br.ufpb.dce.aps.coffeemachine.Button;
 import br.ufpb.dce.aps.coffeemachine.CoffeeMachine;
 import br.ufpb.dce.aps.coffeemachine.Coin;
 import br.ufpb.dce.aps.coffeemachine.ComponentsFactory;
-import br.ufpb.dce.aps.coffeemachine.Drink;
 import br.ufpb.dce.aps.coffeemachine.impl.caixaregistradora.CaixaRegistradoraCoffeeMachineService;
 import br.ufpb.dce.aps.coffeemachine.impl.preparador.PreparadorDeDrinkService;
 
@@ -27,12 +28,13 @@ public class MyCoffeeMachine extends ComporFacade implements CoffeeMachine {
 		requestService("cancelar", this.factory);
 	}
 
-	public void select(Drink drink) {
-		requestService("prepararCafe", drink, this.factory);
+	public void select(Button button) {
+		requestService("prepararCafe", button, this.factory);
 	}
 
 	public void setFactory(ComponentsFactory factory) {
 		this.factory = factory;
+		requestService("apresentarCardapio", this.factory);
 		requestService("mostrarMensagemDeInserirMoedas", this.factory);
 	}
 
