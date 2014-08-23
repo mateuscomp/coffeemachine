@@ -61,8 +61,12 @@ public class CaixaRegistradoraCoffeeMachineService extends Component {
 	@Service
 	public boolean planejarTroco(ComponentsFactory factory, int valorDoCafe) {
 		if (this.modalidadePagamento.equals(ModalidadePagamento.CARTAO)) {
-			return factory.getPayrollSystem().debit(valorDoCafe,
+			boolean temCredito = factory.getPayrollSystem().debit(valorDoCafe,
 					this.numeroDoCartao);
+			if (!temCredito) {
+				factory.getDisplay().warn(Messages.UNKNOWN_BADGE_CODE);
+			}
+			return temCredito;
 		}
 
 		int troco = calcularTroco(valorDoCafe);
