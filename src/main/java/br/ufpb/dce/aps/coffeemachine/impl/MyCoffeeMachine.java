@@ -37,7 +37,7 @@ public class MyCoffeeMachine extends ComporFacade implements CoffeeMachine {
 	}
 
 	public void readBadge(int badgeCode) {
-		requestService("lerCracha", this.factory);
+		requestService("lerCracha", this.factory, badgeCode);
 
 	}
 }

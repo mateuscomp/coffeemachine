@@ -19,10 +19,12 @@ public class CaixaRegistradoraCoffeeMachineService extends Component {
 	private List<Coin> troco;
 
 	private ModalidadePagamento modalidadePagamento;
+	private int numeroDoCartao;
 
 	public CaixaRegistradoraCoffeeMachineService(String name) {
 		super(name);
 		this.coins = new ArrayList<Coin>();
+		this.troco = new ArrayList<Coin>();
 	}
 
 	@Service
@@ -44,7 +46,7 @@ public class CaixaRegistradoraCoffeeMachineService extends Component {
 	}
 
 	@Service
-	public void lerCracha(ComponentsFactory factory) {
+	public void lerCracha(ComponentsFactory factory, int numero) {
 		if (modalidadePagamento != null
 				&& modalidadePagamento.equals(ModalidadePagamento.DINHEIRO)) {
 			factory.getDisplay().warn(Messages.CAN_NOT_READ_BADGE);
@@ -52,11 +54,17 @@ public class CaixaRegistradoraCoffeeMachineService extends Component {
 		}
 
 		factory.getDisplay().info(Messages.BADGE_READ);
+		this.numeroDoCartao = numero;
 		this.modalidadePagamento = ModalidadePagamento.CARTAO;
 	}
 
 	@Service
 	public boolean planejarTroco(ComponentsFactory factory, int valorDoCafe) {
+		if (this.modalidadePagamento.equals(ModalidadePagamento.CARTAO)) {
+			return factory.getPayrollSystem().debit(valorDoCafe,
+					this.numeroDoCartao);
+		}
+
 		int troco = calcularTroco(valorDoCafe);
 		boolean necessitaDeTroco = troco > 0;
 
@@ -137,6 +145,12 @@ public class CaixaRegistradoraCoffeeMachineService extends Component {
 	@Service
 	public boolean verificarValorInserido(ComponentsFactory factory,
 			int valorDoCafe) {
+
+		if (modalidadePagamento != null
+				&& modalidadePagamento.equals(ModalidadePagamento.CARTAO)) {
+			return true;
+		}
+
 		int total = 0;
 		for (Coin c : this.coins) {
 			total += c.getValue();
