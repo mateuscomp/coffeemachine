@@ -8,13 +8,13 @@ public class CafeComCremeService extends CafePretoService {
 
 	protected Dispenser creamerDispenser;
 
-	protected int qtdDeCreme = 20;
+	protected double qtdDeCreme = 20;
 	
 	public CafeComCremeService(){
 		super();
 		this.qtdDeCopos = 1;
-		this.qtdDeAgua = 80;
-		this.qtdDePoDeCafe = 15;
+//		this.qtdDeAgua = 80;
+//		this.qtdDePoDeCafe = 15;
 	}
 
 	@Override
@@ -24,8 +24,8 @@ public class CafeComCremeService extends CafePretoService {
 	}
 
 	public void adicionarIngredientes() {
-		this.coffeePowderDispenser.release(qtdDePoDeCafe);
-		this.waterDispenser.release(qtdDeAgua);
+		this.coffeePowderDispenser.release(this.recipe.COFFEE_POWDER);
+		this.waterDispenser.release(this.recipe.WATER);
 		this.creamerDispenser.release(qtdDeCreme);
 	}
 

@@ -5,6 +5,7 @@ import br.ufpb.dce.aps.coffeemachine.Dispenser;
 import br.ufpb.dce.aps.coffeemachine.Display;
 import br.ufpb.dce.aps.coffeemachine.DrinkDispenser;
 import br.ufpb.dce.aps.coffeemachine.Messages;
+import br.ufpb.dce.aps.coffeemachine.Recipe;
 
 public class CafePretoService implements DrinkService {
 //	protected ComponentsFactory factory;
@@ -17,16 +18,17 @@ public class CafePretoService implements DrinkService {
 	protected Display display;
 
 	protected int qtdDeCopos = 1;
-	protected int qtdDeAgua = 100;
-	protected int qtdDePoDeCafe = 15;
+//	protected double qtdDeAgua = 100;
+//	protected double qtdDePoDeCafe = 15;
 
-	private int valorDoCafe = 35;
+//	private int valorDoCafe = 35;
 
 	private int qtdDoDrink = 100;
+	protected Recipe recipe;
 
 	public void adicionarIngredientes() {
-		this.coffeePowderDispenser.release(qtdDePoDeCafe);
-		this.waterDispenser.release(qtdDeAgua);
+		this.coffeePowderDispenser.release(recipe.getIngredientQuantity(Recipe.COFFEE_POWDER));
+		this.waterDispenser.release(recipe.getIngredientQuantity(Recipe.WATER));
 	}
 
 	public void instanciarDispensers(ComponentsFactory factory) {
@@ -46,12 +48,12 @@ public class CafePretoService implements DrinkService {
 			throw new FaltaDeIngredienteException(Messages.OUT_OF_CUP);
 		}
 
-		boolean temAguaDisponivel = waterDispenser.contains(qtdDeAgua);
+		boolean temAguaDisponivel = waterDispenser.contains(recipe.getIngredientQuantity(Recipe.WATER));
 		if (!temAguaDisponivel) {
 			throw new FaltaDeIngredienteException(Messages.OUT_OF_WATER);
 		}
 		boolean temPoDeCafe = this.coffeePowderDispenser
-				.contains(qtdDePoDeCafe);
+				.contains(recipe.getIngredientQuantity(Recipe.COFFEE_POWDER));
 		if (!temPoDeCafe) {
 			throw new FaltaDeIngredienteException(Messages.OUT_OF_COFFEE_POWDER);
 		}
@@ -66,10 +68,15 @@ public class CafePretoService implements DrinkService {
 	}
 
 	public int getValorDoDrink() {
-		return this.valorDoCafe;
+		return this.recipe.getPriceCents();
 	}
 
 	public void setValorDoDrink(int valor) {
-		this.valorDoCafe = valor;		
+		this.recipe.setPriceCents(valor);		
 	}
+
+	public void setRecipe(Recipe recipe) {
+		this.recipe = recipe;
+	}
+	
 }

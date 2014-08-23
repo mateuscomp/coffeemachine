@@ -1,5 +1,6 @@
 package br.ufpb.dce.aps.coffeemachine.impl.preparador;
 import br.ufpb.dce.aps.coffeemachine.ComponentsFactory;
+import br.ufpb.dce.aps.coffeemachine.Recipe;
 
 public interface DrinkService {
 	
@@ -12,5 +13,6 @@ public interface DrinkService {
 	public int getValorDoDrink();
 	
 	public void setValorDoDrink(int valor);
+	public void setRecipe(Recipe recipe);
 
 }

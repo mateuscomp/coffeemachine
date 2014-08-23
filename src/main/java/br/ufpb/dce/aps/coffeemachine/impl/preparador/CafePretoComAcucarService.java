@@ -7,7 +7,7 @@ import br.ufpb.dce.aps.coffeemachine.Messages;
 public class CafePretoComAcucarService extends CafePretoService {
 
 	private Dispenser sugarDispenser;
-	protected static final int QTD_ACUCAR = 5;
+	protected static final double QTD_ACUCAR = 5;
 
 	@Override
 	public void instanciarDispensers(ComponentsFactory factory) {
@@ -17,9 +17,9 @@ public class CafePretoComAcucarService extends CafePretoService {
 
 	@Override
 	public void adicionarIngredientes() {
-		this.coffeePowderDispenser.release(qtdDePoDeCafe);
-		this.waterDispenser.release(qtdDeAgua);
-		this.sugarDispenser.release(QTD_ACUCAR);
+		this.coffeePowderDispenser.release(this.recipe.COFFEE_POWDER);
+		this.waterDispenser.release(this.recipe.WATER);
+		this.sugarDispenser.release(this.recipe.SUGAR);
 	}
 
 	@Override

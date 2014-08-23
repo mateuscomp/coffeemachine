@@ -5,6 +5,7 @@ import br.ufpb.dce.aps.coffeemachine.Button;
 import br.ufpb.dce.aps.coffeemachine.CoffeeMachine;
 import br.ufpb.dce.aps.coffeemachine.Coin;
 import br.ufpb.dce.aps.coffeemachine.ComponentsFactory;
+import br.ufpb.dce.aps.coffeemachine.Recipe;
 import br.ufpb.dce.aps.coffeemachine.impl.caixaregistradora.CaixaRegistradoraCoffeeMachineService;
 import br.ufpb.dce.aps.coffeemachine.impl.preparador.PreparadorDeDrinkService;
 
@@ -47,5 +48,10 @@ public class MyCoffeeMachine extends ComporFacade implements CoffeeMachine {
 		requestService("mudarPrecoDeItemNoCardapio", button, priceCents);
 		requestService("apresentarCardapio", this.factory);
 
+	}
+
+	public void configuteDrink(Button button, Recipe recipe) {
+		requestService("mudarRecipienteDoDrink", button, recipe);
+		
 	}
 }

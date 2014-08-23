@@ -7,7 +7,7 @@ import br.ufpb.dce.aps.coffeemachine.Messages;
 public class CafeComCremeEComAcucar extends CafeComCremeService {
 
 	private Dispenser sugarDispenser;
-	protected static final int QTD_ACUCAR = 5;
+//	protected static final double QTD_ACUCAR = 5;
 
 	@Override
 	public void instanciarDispensers(ComponentsFactory factory) {
@@ -16,10 +16,10 @@ public class CafeComCremeEComAcucar extends CafeComCremeService {
 	}
 
 	public void adicionarIngredientes() {
-		this.coffeePowderDispenser.release(qtdDePoDeCafe);
-		this.waterDispenser.release(qtdDeAgua);
+		this.coffeePowderDispenser.release(this.recipe.COFFEE_POWDER);
+		this.waterDispenser.release(this.recipe.WATER);
 		this.creamerDispenser.release(qtdDeCreme);
-		this.sugarDispenser.release(QTD_ACUCAR);
+		this.sugarDispenser.release(this.recipe.SUGAR);
 	}
 
 	@Override
@@ -27,7 +27,7 @@ public class CafeComCremeEComAcucar extends CafeComCremeService {
 			throws FaltaDeIngredienteException {
 
 		super.verificarDisponibilidadeDeIgredientes();
-		boolean temAcucar = this.sugarDispenser.contains(QTD_ACUCAR);
+		boolean temAcucar = this.sugarDispenser.contains(this.recipe.SUGAR);
 		if (!temAcucar) {
 			throw new FaltaDeIngredienteException(Messages.OUT_OF_SUGAR);
 		}
