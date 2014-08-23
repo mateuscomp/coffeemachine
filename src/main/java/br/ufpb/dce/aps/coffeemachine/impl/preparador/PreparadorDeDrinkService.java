@@ -11,11 +11,11 @@ import br.ufpb.dce.aps.coffeemachine.Messages;
 
 public class PreparadorDeDrinkService extends Component {
 
-	private Map<Button, CafeService> servicosDeDrink;
+	private Map<Button, DrinkService> servicosDeDrink;
 
 	public PreparadorDeDrinkService(String name) {
 		super(name);
-		this.servicosDeDrink = new HashMap<Button, CafeService>();
+		this.servicosDeDrink = new HashMap<Button, DrinkService>();
 		this.servicosDeDrink.put(Button.BUTTON_1, new CafePretoService());
 		this.servicosDeDrink.put(Button.BUTTON_2, new CafeComCremeService());
 		this.servicosDeDrink.put(Button.BUTTON_3,
@@ -27,19 +27,20 @@ public class PreparadorDeDrinkService extends Component {
 	@Service
 	public void prepararCafe(Button button, ComponentsFactory factory) {
 		try {
-			CafeService service = this.servicosDeDrink.get(button);
+			DrinkService service = this.servicosDeDrink.get(button);
 			service.instanciarDispensers(factory);
 			boolean temDinheiro = (Boolean) requestService(
-					"verificarValorInserido", factory, service.getValorDoCafe());
+					"verificarValorInserido", factory,
+					service.getValorDoDrink());
 			if (temDinheiro) {
 				service.verificarDisponibilidadeDeIgredientes();
 				boolean temTroco = (Boolean) requestService("planejarTroco",
-						factory, service.getValorDoCafe());
+						factory, service.getValorDoDrink());
 				if (temTroco) {
 					factory.getDisplay().info(Messages.MIXING);
 
 					service.adicionarIngredientes();
-					service.fazerCafe();
+					service.fazerDrink();
 
 					requestService("entregarTroco", factory);
 				}
@@ -50,5 +51,15 @@ public class PreparadorDeDrinkService extends Component {
 			requestService("removerMoedas", factory);
 		}
 		factory.getDisplay().info(Messages.INSERT_COINS);
+	}
+
+	@Service
+	public void mudarPrecoDeItemNoCardapio(Button button, int priceCents) {
+		this.servicosDeDrink.get(button).setValorDoDrink(priceCents);
+	}
+
+	@Service
+	public DrinkService getDrinkService(Button button) {
+		return this.servicosDeDrink.get(button);
 	}
 }

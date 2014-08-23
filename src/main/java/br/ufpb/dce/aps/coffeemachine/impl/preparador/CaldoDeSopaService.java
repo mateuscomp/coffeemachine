@@ -6,7 +6,7 @@ import br.ufpb.dce.aps.coffeemachine.Display;
 import br.ufpb.dce.aps.coffeemachine.DrinkDispenser;
 import br.ufpb.dce.aps.coffeemachine.Messages;
 
-public class CaldoDeSopaService implements CafeService {
+public class CaldoDeSopaService implements DrinkService {
 
 	private Display display;
 
@@ -19,6 +19,8 @@ public class CaldoDeSopaService implements CafeService {
 	private int qtdDeAgua = 100;
 	private int qtdDePoDeCaldo = 10;
 	private int qtdDoDrink = 100;
+	
+	private int valorDaSopa = 25;
 
 	public void instanciarDispensers(ComponentsFactory factory) {
 		this.cupDispenser = factory.getCupDispenser();
@@ -57,7 +59,7 @@ public class CaldoDeSopaService implements CafeService {
 
 	}
 
-	public void fazerCafe() {
+	public void fazerDrink() {
 		this.display.info(Messages.RELEASING);
 		this.cupDispenser.release(qtdDeCopos);
 		this.drinkDispenser.release(qtdDoDrink);
@@ -65,8 +67,13 @@ public class CaldoDeSopaService implements CafeService {
 
 	}
 
-	public int getValorDoCafe() {
-		return 25;
+	public int getValorDoDrink() {
+		return this.valorDaSopa;
+	}
+
+	public void setValorDoDrink(int valor) {
+		this.valorDaSopa = valor;
+		
 	}
 
 }

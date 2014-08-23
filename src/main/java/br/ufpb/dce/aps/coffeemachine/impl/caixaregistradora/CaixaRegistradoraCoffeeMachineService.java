@@ -5,10 +5,12 @@ import java.util.List;
 
 import net.compor.frameworks.jcf.api.Component;
 import net.compor.frameworks.jcf.api.Service;
+import br.ufpb.dce.aps.coffeemachine.Button;
 import br.ufpb.dce.aps.coffeemachine.CoffeeMachineException;
 import br.ufpb.dce.aps.coffeemachine.Coin;
 import br.ufpb.dce.aps.coffeemachine.ComponentsFactory;
 import br.ufpb.dce.aps.coffeemachine.Messages;
+import br.ufpb.dce.aps.coffeemachine.impl.preparador.DrinkService;
 
 public class CaixaRegistradoraCoffeeMachineService extends Component {
 
@@ -170,8 +172,13 @@ public class CaixaRegistradoraCoffeeMachineService extends Component {
 
 	@Service
 	public void apresentarCardapio(ComponentsFactory factory) {
-		factory.getButtonDisplay().show("Black: $0.35", "White: $0.35",
+		factory.getButtonDisplay().show("Black: $0." + getValorDoDrink(Button.BUTTON_1), "White: $0.35",
 				"Black with sugar: $0.35", "White with sugar: $0.35",
 				"Bouillon: $0.25", null, null);
+	}
+	
+	public int getValorDoDrink(Button button){
+		DrinkService drinkService = (DrinkService) requestService("getDrinkService", button);
+		return drinkService.getValorDoDrink();
 	}
 }
