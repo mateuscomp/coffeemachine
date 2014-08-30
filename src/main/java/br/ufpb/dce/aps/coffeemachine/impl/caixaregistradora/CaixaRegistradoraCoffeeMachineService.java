@@ -172,13 +172,15 @@ public class CaixaRegistradoraCoffeeMachineService extends Component {
 
 	@Service
 	public void apresentarCardapio(ComponentsFactory factory) {
-		factory.getButtonDisplay().show("Black: $0." + getValorDoDrink(Button.BUTTON_1), "White: $0.35",
-				"Black with sugar: $0.35", "White with sugar: $0.35",
-				"Bouillon: $0.25", null, null);
+		factory.getButtonDisplay().show(
+				"Black: $0." + getValorDoDrink(Button.BUTTON_1),
+				"White: $0.35", "Black with sugar: $0.35",
+				"White with sugar: $0.35", "Bouillon: $0.25", null, null);
 	}
-	
-	public int getValorDoDrink(Button button){
-		DrinkService drinkService = (DrinkService) requestService("getDrinkService", button);
+
+	public int getValorDoDrink(Button button) {
+		DrinkService drinkService = (DrinkService) requestService(
+				"getDrinkService", button);
 		return drinkService.getValorDoDrink();
 	}
 }

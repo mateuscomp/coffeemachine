@@ -5,9 +5,10 @@ import br.ufpb.dce.aps.coffeemachine.Dispenser;
 import br.ufpb.dce.aps.coffeemachine.Display;
 import br.ufpb.dce.aps.coffeemachine.DrinkDispenser;
 import br.ufpb.dce.aps.coffeemachine.Messages;
+import br.ufpb.dce.aps.coffeemachine.Recipe;
 
 public class CafePretoService implements DrinkService {
-//	protected ComponentsFactory factory;
+	// protected ComponentsFactory factory;
 
 	protected Dispenser cupDispenser;
 	protected Dispenser waterDispenser;
@@ -17,12 +18,20 @@ public class CafePretoService implements DrinkService {
 	protected Display display;
 
 	protected int qtdDeCopos = 1;
-	protected int qtdDeAgua = 100;
-	protected int qtdDePoDeCafe = 15;
+	protected double qtdDeAgua = 100;
+	protected double qtdDePoDeCafe = 15;
 
 	private int valorDoCafe = 35;
 
-	private int qtdDoDrink = 100;
+	private double qtdDoDrink = 100;
+
+	protected Recipe recipe;
+
+	public CafePretoService() {
+		this.recipe = new Recipe();
+		recipe.setName("Black");
+		recipe.setPriceCents(valorDoCafe);
+	}
 
 	public void adicionarIngredientes() {
 		this.coffeePowderDispenser.release(qtdDePoDeCafe);
@@ -66,10 +75,15 @@ public class CafePretoService implements DrinkService {
 	}
 
 	public int getValorDoDrink() {
-		return this.valorDoCafe;
+		return this.recipe.getPriceCents();
 	}
 
 	public void setValorDoDrink(int valor) {
-		this.valorDoCafe = valor;		
+		this.recipe.setPriceCents(valor);
 	}
+
+	public void setRecipe(Recipe recipe) {
+		this.recipe = recipe;
+	}
+
 }

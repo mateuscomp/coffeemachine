@@ -8,6 +8,7 @@ import net.compor.frameworks.jcf.api.Service;
 import br.ufpb.dce.aps.coffeemachine.Button;
 import br.ufpb.dce.aps.coffeemachine.ComponentsFactory;
 import br.ufpb.dce.aps.coffeemachine.Messages;
+import br.ufpb.dce.aps.coffeemachine.Recipe;
 
 public class PreparadorDeDrinkService extends Component {
 
@@ -61,5 +62,10 @@ public class PreparadorDeDrinkService extends Component {
 	@Service
 	public DrinkService getDrinkService(Button button) {
 		return this.servicosDeDrink.get(button);
+	}
+	
+	@Service
+	public void modificarRecipeNoDrinkService(Button drink, Recipe recipe){
+		this.servicosDeDrink.get(drink).setRecipe(recipe);
 	}
 }

@@ -8,13 +8,16 @@ public class CafeComCremeService extends CafePretoService {
 
 	protected Dispenser creamerDispenser;
 
-	protected int qtdDeCreme = 20;
-	
-	public CafeComCremeService(){
+	protected double qtdDeCreme = 20;
+
+	public CafeComCremeService() {
 		super();
 		this.qtdDeCopos = 1;
 		this.qtdDeAgua = 80;
 		this.qtdDePoDeCafe = 15;
+
+		this.recipe.setName("White");
+		this.recipe.setPriceCents(35);
 	}
 
 	@Override

@@ -7,7 +7,12 @@ import br.ufpb.dce.aps.coffeemachine.Messages;
 public class CafeComCremeEComAcucar extends CafeComCremeService {
 
 	private Dispenser sugarDispenser;
-	protected static final int QTD_ACUCAR = 5;
+	protected static final double QTD_ACUCAR = 5;
+	
+	public CafeComCremeEComAcucar() {
+		super();
+		this.recipe.setName("White with sugar");
+	}
 
 	@Override
 	public void instanciarDispensers(ComponentsFactory factory) {
